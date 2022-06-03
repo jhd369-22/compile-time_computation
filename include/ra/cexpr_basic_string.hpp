@@ -55,7 +55,7 @@ class cexpr_basic_string {
             }
 
             if(m_size_ > M){
-                throw std::runtime_error("cexpr_basic_string: string too long");
+                throw std::runtime_error("cexpr_basic_string: insufficient capacity");
             }
 
             s = s - m_size_ - 1;
@@ -78,7 +78,7 @@ class cexpr_basic_string {
             }
 
             if(m_size_ > M){
-                throw std::runtime_error("cexpr_basic_string: string too long");
+                throw std::runtime_error("cexpr_basic_string: insufficient capacity");
             }
 
             first = first - m_size_ - 1;
@@ -141,19 +141,36 @@ class cexpr_basic_string {
         // is less than the string size; and returns a reference to the
         // dummy null character if i equals the string size.
         // Precondition: The index i is such that i >= 0 and i <= size().
-        constexpr reference operator[](size_type i);
-        constexpr const_reference operator[](size_type i) const;
+        constexpr reference operator[](size_type i){
+            return m_data_[i];
+        }
+        constexpr const_reference operator[](size_type i) const{
+            return m_data_[i];
+        }
 
         // Appends (i.e., adds to the end) a single character to the
         // string. If the size of the string is equal to the capacity,
         // the string is not modified and an exception of type
         // std::runtime_error is thrown.
-        constexpr void push_back(const T& x);
+        constexpr void push_back(const T& x){
+            if (m_size_ == M) {
+                throw std::runtime_error("push_back: string if full");
+            }
+
+            m_data_[m_size_++] = x;
+            m_data_[m_size_] = value_type(0);
+        }
 
         // Erases the last character in the string.
         // If the string is empty, an exception of type std::runtime_error
         // is thrown.
-        constexpr void pop_back();
+        constexpr void pop_back(){
+            if (m_size_ == 0) {
+                throw std::runtime_error("pop_back: string is empty");
+            }
+
+            m_data_[--m_size_] = value_type(0);
+        }
 
         // Appends (i.e., adds to the end) to the string the
         // null-terminated string pointed to by s.
@@ -161,7 +178,12 @@ class cexpr_basic_string {
         // If the string has insufficient capacity to hold the new value
         // resulting from the append operation, the string is not modified
         // and an exception of type std::runtime_error is thrown.
-        constexpr cexpr_basic_string& append(const value_type* s);
+        constexpr cexpr_basic_string& append(const value_type* s){
+            while(*s){
+                push_back(*s++);
+            }
+            return *this;
+        }
 
         // Appends (i.e., adds to the end) to the string another
         // cexpr_basic_string with the same character type (but
@@ -170,11 +192,23 @@ class cexpr_basic_string {
         // resulting from the append operation, the string is not modified
         // and an exception of type std::runtime_error is thrown.
         template <size_type OtherM>
-        constexpr cexpr_basic_string& append(const cexpr_basic_string<value_type, OtherM>& other);
+        constexpr cexpr_basic_string& append(const cexpr_basic_string<value_type, OtherM>& other){
+            if(other.size() > M - m_size_){
+                throw std::runtime_error("append: insufficient capacity");
+            }
+
+            for(size_type i = 0; i < other.size(); ++i){
+                push_back(other[i]);
+            }
+            return *this;
+        }
 
         // Erases all of the characters in the string, yielding an empty
         // string.
-        constexpr void clear();
+        constexpr void clear(){
+            m_size_ = 0;
+            m_data_[0] = value_type(0);
+        }
 
     private:
         // The number of characters in the string (excluding the dummy
@@ -188,7 +222,44 @@ class cexpr_basic_string {
 template <std::size_t M>
 using cexpr_string = cexpr_basic_string<char, M>;
 
-constexpr std::size_t to_string(std::size_t n, char* buffer,
-                                std::size_t size, char** end);
+// The to_string function converts the integer n to its equivalent (decimal) 
+// null-terminated string representation. The buffer to be used to store the
+// result starts at the location pointed to by buffer and has a size of size
+// characters. The resulting string produced by the function is null-terminated.
+// The number of characters written to the buffer, excluding the null character,
+// is returned. If end is non-null, *end is set to point to the null character
+// at the end of the converted string. If the buffer provided does not have
+// sufficient capacity to hold the string resulting from the conversion process,
+// an exception of type std::runtime_error is thrown.
+constexpr std::size_t to_string(std::size_t n, char* buffer, std::size_t size, char** end){
+
+    std::size_t i = 0;
+    std::size_t num = n;
+    while(num > 0){
+        ++i;
+        num /= 10;
+    }
+
+    if(i > size){
+        throw std::runtime_error("to_string: insufficient buffer size");
+    }
+
+    char* p = buffer + i;
+    *p = '\0';
+
+    if (end) {
+        *end = p;
+    }
+
+    while(n > 0){
+        *--p = '0' + (n % 10);
+        n /= 10;
+    }
+
+    return i;
+}
+
+    
+    
 
 }  // namespace ra::cexpr
