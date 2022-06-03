@@ -257,9 +257,6 @@ constexpr std::size_t to_string(std::size_t n, char* buffer, std::size_t size, c
     }
 
     return i;
-}
-
-    
-    
+} 
 
 }  // namespace ra::cexpr
