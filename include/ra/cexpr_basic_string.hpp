@@ -91,19 +91,19 @@ class cexpr_basic_string {
         // Returns the maximum number of characters that can be held by a
         // string of this type.
         // The value returned is the template parameter M.
-        static constexpr size_type max_size() noexcept {
+        static constexpr size_type max_size() {
             return M;
         }
 
         // Returns the maximum number of characters that the string can
         // hold. The value returned is always the template parameter M.
-        constexpr size_type capacity() const noexcept {
+        constexpr size_type capacity() const {
             return M;
         }
 
         // Returns the number of characters in the string (excluding the
         // dummy null character).
-        constexpr size_type size() const noexcept {
+        constexpr size_type size() const {
             return m_size_;
         }
 
@@ -112,28 +112,28 @@ class cexpr_basic_string {
         // null-terminated character array.
         // The user of this class shall not alter the dummy null
         // character stored at data() + size().
-        value_type* data() noexcept {
+        value_type* data() {
             return m_data_;
         }
-        const value_type* data() const noexcept {
+        const value_type* data() const {
             return m_data_;
         }
 
         // Returns an iterator referring to the first character in the
         // string.
-        constexpr iterator begin() noexcept {
+        constexpr iterator begin()  {
             return m_data_;
         }
-        constexpr const_iterator begin() const noexcept {
+        constexpr const_iterator begin() const {
             return m_data_;
         }
 
         // Returns an iterator referring to the fictitious
         // one-past-the-end character in the string.
-        constexpr iterator end() noexcept {
+        constexpr iterator end()  {
             return m_data_ + m_size_;
         }
-        constexpr const_iterator end() const noexcept {
+        constexpr const_iterator end() const {
             return m_data_ + m_size_;
         }
 
@@ -141,7 +141,7 @@ class cexpr_basic_string {
         // is less than the string size; and returns a reference to the
         // dummy null character if i equals the string size.
         // Precondition: The index i is such that i >= 0 and i <= size().
-        constexpr reference operator[](size_type i){
+        constexpr reference operator[](size_type i) {
             return m_data_[i];
         }
         constexpr const_reference operator[](size_type i) const{
