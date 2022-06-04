@@ -1,5 +1,4 @@
 #include <ra/cexpr_basic_string.hpp>
-#include <type_traits>
 #include <iostream>
 
 // test1
@@ -40,7 +39,17 @@ constexpr bool testing_copy_assignment() {
     return true;
 }
 
-// test4
+// test4 using ctor with char*
+constexpr bool testing_ctor_with_char_ptr() {
+    constexpr ra::cexpr::cexpr_basic_string<char, 10> r("hello");
+    static_assert(r.max_size() == 10);
+    static_assert(r.capacity() == 10);
+    static_assert(r.size() == 5);
+    static_assert(r.begin() != r.end());
+}
+
+
+
 constexpr bool testing_string_constructor() {
     constexpr ra::cexpr::cexpr_basic_string<char, 10> r("hello");
     static_assert(r.max_size() == 10);

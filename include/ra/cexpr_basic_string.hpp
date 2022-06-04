@@ -48,8 +48,7 @@ class cexpr_basic_string {
         // If the string does not have sufficient capacity to hold
         // the character data provided, an exception of type
         // std::runtime_error is thrown.
-        constexpr cexpr_basic_string(const value_type* s){
-            m_size_ = 0;
+        constexpr cexpr_basic_string(const value_type* s): m_size_(0), m_data_{value_type(0)} {
             while(*s++){
                 ++m_size_;
             }
@@ -70,8 +69,7 @@ class cexpr_basic_string {
         // If the string does not have sufficient capacity to hold
         // the character data provided, an exception of type
         // std::runtime_error is thrown.
-        constexpr cexpr_basic_string(const_iterator first, const_iterator last){
-            m_size_ = 0;
+        constexpr cexpr_basic_string(const_iterator first, const_iterator last): m_size_(0), m_data_{value_type(0)} {
             while (first != last) {
                 ++m_size_;
                 ++first;
