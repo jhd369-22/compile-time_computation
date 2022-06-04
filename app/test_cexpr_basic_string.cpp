@@ -61,6 +61,7 @@ constexpr bool testing_string_constructor() {
         static_assert(testing_empty_string_constructor(), "test1 failed");
         static_assert(testing_copy_constructor(), "test2 failed");
         static_assert(testing_copy_assignment(), "test3 failed");
+        static_assert(testing_string_constructor(), "test4 failed");
 
         return 0;
 }
