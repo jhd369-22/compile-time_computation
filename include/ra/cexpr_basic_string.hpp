@@ -70,9 +70,9 @@ class cexpr_basic_string {
         // the character data provided, an exception of type
         // std::runtime_error is thrown.
         constexpr cexpr_basic_string(const_iterator first, const_iterator last): m_size_(0), m_data_{value_type(0)} {
-            while (first != last) {
+            while (first++ != last) {
                 ++m_size_;
-                ++first;
+                //++first;
             }
 
             if(m_size_ > M){
@@ -120,19 +120,19 @@ class cexpr_basic_string {
         // Returns an iterator referring to the first character in the
         // string.
         constexpr iterator begin()  {
-            return m_data_;
+            return m_data_[0];
         }
         constexpr const_iterator begin() const {
-            return m_data_;
+            return &m_data_[0];
         }
 
         // Returns an iterator referring to the fictitious
         // one-past-the-end character in the string.
         constexpr iterator end()  {
-            return m_data_ + m_size_;
+            return m_data_[m_size_];
         }
         constexpr const_iterator end() const {
-            return m_data_ + m_size_;
+            return &m_data_[m_size_];
         }
 
         // Returns a reference to the i-th character in the string if i
