@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <ra/cexpr_basic_string.hpp>
 
@@ -6,13 +7,14 @@ constexpr bool testing_copy_constructor();
 constexpr bool testing_copy_assignment_operator();
 constexpr bool testing_string_constructor();
 constexpr bool testing_iterator_constructor();
-constexpr bool testing_push_back();
 constexpr ra::cexpr::cexpr_basic_string<char, 10> testing_push_back_helper();
-constexpr bool testing_pop_back();
+constexpr bool testing_push_back();
 constexpr ra::cexpr::cexpr_basic_string<char, 10> testing_pop_back_helper();
+constexpr bool testing_pop_back();
+constexpr ra::cexpr::cexpr_basic_string<char, 15> testing_append_helper();
 constexpr bool testing_append();
-constexpr ra::cexpr::cexpr_basic_string<char, 10> testing_append_helper();
-
+constexpr ra::cexpr::cexpr_basic_string<char, 15> testing_template_append_helper();
+constexpr bool testing_template_append();
 
 // test1
 constexpr bool testing_empty_string_constructor() {
@@ -135,7 +137,7 @@ constexpr ra::cexpr::cexpr_basic_string<char, 15> testing_append_helper() {
     return r;
 }
 
-// test8 append
+// test8
 constexpr bool testing_append() {
     constexpr ra::cexpr::cexpr_basic_string<char, 15> r = testing_append_helper();
     static_assert(r.max_size() == 15);
@@ -158,6 +160,65 @@ constexpr bool testing_append() {
     return true;
 }
 
+// test9 helper function
+constexpr ra::cexpr::cexpr_basic_string<char, 15> testing_template_append_helper() {
+    ra::cexpr::cexpr_basic_string<char, 15> r("hello");
+    ra::cexpr::cexpr_basic_string<char, 15> r2(" world");
+    r.append<15>(r2);
+
+    return r;
+}
+
+// test9
+constexpr bool testing_template_append() {
+    constexpr ra::cexpr::cexpr_basic_string<char, 15> r = testing_template_append_helper();
+    static_assert(r.max_size() == 15);
+    static_assert(r.capacity() == 15);
+    static_assert(r.size() == 11);
+    static_assert(r.begin() != r.end());
+    static_assert(r[0] == 'h');
+    static_assert(r[1] == 'e');
+    static_assert(r[2] == 'l');
+    static_assert(r[3] == 'l');
+    static_assert(r[4] == 'o');
+    static_assert(r[5] == ' ');
+    static_assert(r[6] == 'w');
+    static_assert(r[7] == 'o');
+    static_assert(r[8] == 'r');
+    static_assert(r[9] == 'l');
+    static_assert(r[10] == 'd');
+    static_assert(r[11] == '\0');
+
+    return true;
+}
+// test10 helper function
+constexpr std::size_t testing_to_string_helper() {
+    char str[15] = "number is ";
+    char* str_end = str + 11;
+
+    return ra::cexpr::to_string(66, &(*str_end), 15, &(str_end));
+}
+
+// test10
+constexpr bool testing_to_string() {
+    constexpr std::size_t num_str = testing_to_string_helper();
+    static_assert(num_str == 2);
+
+    return true;
+}
+
+// test11
+bool testing_to_string_overflow() {
+    char str[15] = "number is ";
+    char* str_end = str + 11;
+
+    std::size_t num_size = ra::cexpr::to_string(66, &(*str_end), 15, &(str_end));
+    ra::cexpr::cexpr_basic_string<char, 15> r(str);
+    assert(r.data() == "number is 66");
+
+    return true;
+}
+
 int main() {
     static_assert(testing_empty_string_constructor(), "test1 failed");
     static_assert(testing_copy_constructor(), "test2 failed");
@@ -167,6 +228,9 @@ int main() {
     static_assert(testing_push_back(), "test6 failed");
     static_assert(testing_pop_back(), "test7 failed");
     static_assert(testing_append(), "test8 failed");
+    static_assert(testing_template_append(), "test9 failed");
+    static_assert(testing_to_string(), "test10 failed");
+    assert(testing_to_string_overflow());
 
     return 0;
 }
