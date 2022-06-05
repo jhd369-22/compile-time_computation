@@ -245,7 +245,7 @@ int main() {
     static_assert(testing_append(), "test8 failed");
     static_assert(testing_template_append(), "test9 failed");
     static_assert(testing_to_string(), "test10 failed");
-    assert(testing_to_string2(), "test11 failed");
+    assert(testing_to_string2());
 
     return 0;
 }
