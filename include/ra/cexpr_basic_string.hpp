@@ -120,7 +120,7 @@ class cexpr_basic_string {
         // Returns an iterator referring to the first character in the
         // string.
         constexpr iterator begin()  {
-            return m_data_[0];
+            return &m_data_[0];
         }
         constexpr const_iterator begin() const {
             return &m_data_[0];
@@ -129,7 +129,7 @@ class cexpr_basic_string {
         // Returns an iterator referring to the fictitious
         // one-past-the-end character in the string.
         constexpr iterator end()  {
-            return m_data_[m_size_];
+            return &m_data_[m_size_];
         }
         constexpr const_iterator end() const {
             return &m_data_[m_size_];
