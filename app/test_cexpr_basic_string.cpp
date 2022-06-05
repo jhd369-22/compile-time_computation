@@ -87,6 +87,14 @@ constexpr bool testing_iterator_constructor() {
     return true;
 }
 
+// test6 helper function
+constexpr ra::cexpr::cexpr_basic_string<char, 10> testing_push_back_helper() {
+    ra::cexpr::cexpr_basic_string<char, 10> r;
+    r.push_back('h');
+
+    return r;
+}
+
 // test6
 constexpr bool testing_push_back() {
     constexpr ra::cexpr::cexpr_basic_string<char, 10> r = testing_push_back_helper();
@@ -99,10 +107,10 @@ constexpr bool testing_push_back() {
     return true;
 }
 
-// test6 helper function
-constexpr ra::cexpr::cexpr_basic_string<char, 10> testing_push_back_helper() {
-    ra::cexpr::cexpr_basic_string<char, 10> r;
-    r.push_back('h');
+// test7 helper function
+constexpr ra::cexpr::cexpr_basic_string<char, 10> testing_pop_back_helper() {
+    ra::cexpr::cexpr_basic_string<char, 10> r("hello");
+    r.pop_back();
 
     return r;
 }
@@ -119,10 +127,10 @@ constexpr bool testing_pop_back() {
     return true;
 }
 
-// test7 helper function
-constexpr ra::cexpr::cexpr_basic_string<char, 10> testing_pop_back_helper() {
-    ra::cexpr::cexpr_basic_string<char, 10> r("hello");
-    r.pop_back();
+// test8 helper function
+constexpr ra::cexpr::cexpr_basic_string<char, 15> testing_append_helper() {
+    ra::cexpr::cexpr_basic_string<char, 15> r("hello");
+    r.append(" world");
 
     return r;
 }
@@ -148,14 +156,6 @@ constexpr bool testing_append() {
     static_assert(r[11] == '\0');
 
     return true;
-}
-
-// test8 helper function
-constexpr ra::cexpr::cexpr_basic_string<char, 15> testing_append_helper() {
-    ra::cexpr::cexpr_basic_string<char, 15> r("hello");
-    r.append(" world");
-
-    return r;
 }
 
 int main() {
