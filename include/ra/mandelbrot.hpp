@@ -1,7 +1,8 @@
 #include <ra/cexpr_basic_string.hpp>
 
 namespace ra::fractal {
-
+    // determines if a given point in the complex plane
+    // is in the Mandelbrot set
     template <std::size_t W, std::size_t H>
     constexpr bool binary_map(std::size_t K, std::size_t L) {
         const double r = -1.6 + K * ((0.6 + 1.6) / (W - 1));
@@ -25,7 +26,8 @@ namespace ra::fractal {
         }
     }
 
-    // returns a cexpr_string<M> object that contains the Mandelbrot set.
+    // returns a cexpr_string<M> object that contains the 
+    // Mandelbrot set maps to either 0 or 1
     template <std::size_t W, std::size_t H>
     constexpr auto mandelbrot_to_binary() {
         char width[10];
@@ -38,13 +40,9 @@ namespace ra::fractal {
 
         ra::cexpr::cexpr_string<(W + 1) * (H + 1)> s("P1 ");
 
-        //char* temp = s.end();
-        //ra::cexpr::to_string(W, temp, W * H, &(temp));
         s.append(width);
         s.push_back(' ');
 
-        //temp = s.end();
-        //ra::cexpr::to_string(H, temp, W * H, &(temp));
         s.append(height);
         s.push_back('\n');
 
