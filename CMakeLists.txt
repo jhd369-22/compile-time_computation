@@ -10,12 +10,15 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Note: to use Clang compiler
+# cmake -D CMAKE_CXX_COMPILER=clang++
+
 # Set the variable EXTRA_COMPILE_FLAGS to the desired compile flags
 # to add for the particular compiler being used (as explained above).
 # For GCC:
-set(EXTRA_COMPILE_FLAGS "-fconstexpr-loop-limit=10000")
+# set(EXTRA_COMPILE_FLAGS "-fconstexpr-loop-limit=10000")
 # For Clang:
-# set(EXTRA_COMPILE_FLAGS "-fconstexpr-steps=100000000")
+set(EXTRA_COMPILE_FLAGS "-fconstexpr-steps=100000000")
 # Add the desired flags to the compilation of the
 # app/test_mandelbrot.cpp file.
 set_source_files_properties(app/test_mandelbrot.cpp PROPERTIES COMPILE_FLAGS ${EXTRA_COMPILE_FLAGS})

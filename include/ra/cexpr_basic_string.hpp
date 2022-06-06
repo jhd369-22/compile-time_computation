@@ -152,7 +152,7 @@ namespace ra::cexpr {
             // std::runtime_error is thrown.
             constexpr void push_back(const T& x) {
                 if (m_size_ == M) {
-                    throw std::runtime_error("push_back: string if full");
+                    throw std::runtime_error("push_back: string is full");
                 }
 
                 m_data_[m_size_++] = x;
