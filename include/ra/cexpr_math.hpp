@@ -59,7 +59,7 @@ namespace ra::cexpr_math {
             return x;
         }
 
-        return 3 * sin(mod(x, 2 * pi<T>) / 3) - 4 * cube(sin(mod(x, 2 * pi<T>) / 3));
+        return 3.0 * sin(mod(x, 2.0 * pi<T>) / 3.0) - 4.0 * cube(sin(mod(x, 2.0 * pi<T>) / 3.0));
     }
 
     // Returns the cosine of x.
@@ -68,7 +68,7 @@ namespace ra::cexpr_math {
     // The type T is a floating-point type.
     template <class T>
     constexpr T cos(T x){
-        return sin(x + pi<T> / 2);
+        return sin(x + pi<T> / 2.0);
     }
 
     // Returns the tangent of x.
@@ -80,7 +80,7 @@ namespace ra::cexpr_math {
     template <class T>
     constexpr T tan(T x){
         T value = cos(x);
-        if(T == 0){
+        if(value == 0){
             throw std::overflow_error("tangent of infinite");
         }
         return sin(x) / value;
@@ -103,17 +103,17 @@ namespace ra::cexpr_math {
 
         constexpr T epsilon = std::numeric_limits<T>::epsilon();
         constexpr T m = std::numeric_limits<T>::max_exponent;
-        T x_0 = x + 6;
+        T x_0 = x + 6.0;
         T x_n = x;
-        T f_x = 0;
-        T f_der = 0;
+        T f_x = 0.0;
+        T f_der = 0.0;
         const T c = x;
-        T n = 0;
+        T n = 0.0;
 
         while(abs(x_n - x_0) > epsilon && n < m){
             x_0 = x_n;
             f_x = sqr(x_0) - c;
-            f_der = 2 * x_0;
+            f_der = 2.0 * x_0;
             x_n = x_0 - f_x / f_der;
             n++;
         }

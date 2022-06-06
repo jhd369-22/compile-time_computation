@@ -30,22 +30,22 @@ int main(){
     static_assert(ra::cexpr_math::mod<double>(6, 6) == 0);
 
     // sin
-    static_assert(ra::cexpr_math::sin<double>(-1) == -0.8414709848078965);
+    static_assert(ra::cexpr_math::sin<double>(-1) == -0.84147098481076599);
     static_assert(ra::cexpr_math::sin<double>(0) == 0);
-    static_assert(ra::cexpr_math::sin<double>(1) == 0.8414709848078965);
-    static_assert(ra::cexpr_math::sin<double>(9) == 0.4121184852417566);
+    static_assert(ra::cexpr_math::sin<double>(1) == 0.84147098481076599);
+    static_assert(ra::cexpr_math::sin<double>(9) == 0.41211848523097472);
 
     // cos
-    static_assert(ra::cexpr_math::cos<double>(-1) == -0.5403023058681398);
+    static_assert(ra::cexpr_math::cos<double>(-1) == 0.54030230587561978);
     static_assert(ra::cexpr_math::cos<double>(0) == 1);
-    static_assert(ra::cexpr_math::cos<double>(1) == 0.5403023058681398);
-    static_assert(ra::cexpr_math::cos<double>(9) == 0.8685889638065807);
+    static_assert(ra::cexpr_math::cos<double>(1) == 0.54030230585970229);
+    static_assert(ra::cexpr_math::cos<double>(9) == -0.91113026190384661);
 
     // tan
-    static_assert(ra::cexpr_math::tan<double>(-1) == -1.5574077246549022);
+    static_assert(ra::cexpr_math::tan<double>(-1) == -1.557407724638652);
     static_assert(ra::cexpr_math::tan<double>(0) == 0);
-    static_assert(ra::cexpr_math::tan<double>(1) == 1.5574077246549022);
-    static_assert(ra::cexpr_math::tan<double>(9) == -0.452315659441810);
+    static_assert(ra::cexpr_math::tan<double>(1) == 1.5574077246845337);
+    static_assert(ra::cexpr_math::tan<double>(9) == -0.45231565942045993);
 
     // sqrt
     static_assert(ra::cexpr_math::sqrt<double>(0) == 0);
