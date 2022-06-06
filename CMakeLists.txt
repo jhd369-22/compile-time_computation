@@ -10,6 +10,16 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Set the variable EXTRA_COMPILE_FLAGS to the desired compile flags
+# to add for the particular compiler being used (as explained above).
+# For GCC:
+set(EXTRA_COMPILE_FLAGS "-fconstexpr-loop-limit=10000")
+# For Clang:
+# set(EXTRA_COMPILE_FLAGS "-fconstexpr-steps=100000000")
+# Add the desired flags to the compilation of the
+# app/test_mandelbrot.cpp file.
+set_source_files_properties(app/test_mandelbrot.cpp PROPERTIES COMPILE_FLAGS ${EXTRA_COMPILE_FLAGS})
+
 # find catch2
 find_package(Catch2 REQUIRED)
 
@@ -21,4 +31,5 @@ include_directories(include)
 
 # add executable
 add_executable(test_cexpr_basic_string app/test_cexpr_basic_string.cpp)
-target_link_libraries(test_cexpr_basic_string Catch2::Catch2)
+
+add_executable(test_mandelbrot app/test_mandelbrot.cpp)
