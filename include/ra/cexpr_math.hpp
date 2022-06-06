@@ -1,5 +1,6 @@
 #include <limits>
 #include <numbers>
+#include <stdexcept>
 
 namespace ra::cexpr_math {
     // The math constant pi.
@@ -95,7 +96,7 @@ namespace ra::cexpr_math {
         if(x < 0){
             throw std::domain_error("square root of negative");
         }
-        
+
         if(x == 0){
             return 0;
         }
