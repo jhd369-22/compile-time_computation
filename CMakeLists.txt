@@ -38,3 +38,5 @@ add_executable(test_cexpr_basic_string app/test_cexpr_basic_string.cpp)
 add_executable(test_mandelbrot app/test_mandelbrot.cpp)
 
 add_executable(test_cexpr_math app/test_cexpr_math.cpp)
+
+add_executable(test_biquad_filter app/test_biquad_filter.cpp)
