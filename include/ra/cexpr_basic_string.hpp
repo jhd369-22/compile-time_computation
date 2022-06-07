@@ -72,7 +72,6 @@ namespace ra::cexpr {
             constexpr cexpr_basic_string(const_iterator first, const_iterator last) : m_size_(0), m_data_{value_type(0)} {
                 while (first++ != last) {
                     ++m_size_;
-                    //++first;
                 }
 
                 if (m_size_ > M) {

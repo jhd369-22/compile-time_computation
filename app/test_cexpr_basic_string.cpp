@@ -108,6 +108,7 @@ constexpr bool testing_push_back() {
     static_assert(r.size() == 1);
     static_assert(r.begin() != r.end());
     static_assert(r[0] == 'h');
+    static_assert(r[1] == '\0');
 
     return true;
 }
@@ -197,7 +198,7 @@ constexpr bool testing_template_append() {
 // test10 helper function
 constexpr std::size_t testing_to_string_helper() {
     char str[15] = "number is ";
-    char* str_end = str + 11;
+    char* str_end = str + 10;
 
     return ra::cexpr::to_string(66, &(*str_end), 15, &(str_end));
 }

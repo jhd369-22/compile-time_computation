@@ -23,9 +23,6 @@ set(EXTRA_COMPILE_FLAGS "-fconstexpr-steps=100000000")
 # app/test_mandelbrot.cpp file.
 set_source_files_properties(app/test_mandelbrot.cpp PROPERTIES COMPILE_FLAGS ${EXTRA_COMPILE_FLAGS})
 
-# find catch2
-find_package(Catch2 REQUIRED)
-
 # include the file containing the sanitizer option
 include(Sanitizers.cmake)
 
