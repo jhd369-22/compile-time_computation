@@ -1,56 +1,67 @@
 #include<ra/cexpr_math.hpp>
 
- 
+namespace math = ra::cexpr_math;
 
-int main(){
+template<typename T>
+void test_case(){
+
+    // pi
+    constexpr auto m1 = math::pi<T>;
+
     // abs
-    static_assert(ra::cexpr_math::abs<double>(-1) == 1);
-    static_assert(ra::cexpr_math::abs<double>(1) == 1);
-    static_assert(ra::cexpr_math::abs<double>(0) == 0);
+    static_assert(math::abs<T>(T(-1)) == T(1));
+    static_assert(math::abs<T>(T(1)) == T(1));
+    static_assert(math::abs<T>(T(0)) == T(0));
 
     // square
-    static_assert(ra::cexpr_math::sqr<double>(-2) == 4);
-    static_assert(ra::cexpr_math::sqr<double>(-1) == 1);
-    static_assert(ra::cexpr_math::sqr<double>(0) == 0);
-    static_assert(ra::cexpr_math::sqr<double>(1) == 1);
-    static_assert(ra::cexpr_math::sqr<double>(2) == 4);
+    static_assert(math::sqr<T>(T(-2)) == T(4));
+    static_assert(math::sqr<T>(T(-1)) == T(1));
+    static_assert(math::sqr<T>(T(0)) == T(0));
+    static_assert(math::sqr<T>(T(1)) == T(1));
+    static_assert(math::sqr<T>(T(2)) == T(4));
 
     // cube
-    static_assert(ra::cexpr_math::cube<double>(-2) == -8);
-    static_assert(ra::cexpr_math::cube<double>(-1) == -1);
-    static_assert(ra::cexpr_math::cube<double>(0) == 0);
-    static_assert(ra::cexpr_math::cube<double>(1) == 1);
-    static_assert(ra::cexpr_math::cube<double>(2) == 8);
+    static_assert(math::cube<T>(T(-2)) == T(-8));
+    static_assert(math::cube<T>(T(-1)) == T(-1));
+    static_assert(math::cube<T>(T(0)) == T(0));
+    static_assert(math::cube<T>(T(1)) == T(1));
+    static_assert(math::cube<T>(T(2)) == T(8));
 
     // modulo
-    static_assert(ra::cexpr_math::mod<double>(3, 6) == 3);
-    static_assert(ra::cexpr_math::mod<double>(6, 3) == 0);
-    static_assert(ra::cexpr_math::mod<double>(3, -6) == 3);
-    static_assert(ra::cexpr_math::mod<double>(-6, 3) == 0);
-    static_assert(ra::cexpr_math::mod<double>(6, 6) == 0);
+    static_assert(math::mod<T>(T(3), T(6)) == T(3));
+    static_assert(math::mod<T>(T(6), T(3)) == T(0));
+    static_assert(math::mod<T>(T(3), T(-6)) == T(3));
+    static_assert(math::mod<T>(T(-6), T(3)) == T(0));
+    static_assert(math::mod<T>(T(6), T(6)) == T(0));
 
     // sin
-    static_assert(ra::cexpr_math::sin<double>(-1) == -0.84147098481076599);
-    static_assert(ra::cexpr_math::sin<double>(0) == 0);
-    static_assert(ra::cexpr_math::sin<double>(1) == 0.84147098481076599);
-    static_assert(ra::cexpr_math::sin<double>(9) == 0.41211848523097472);
+    constexpr auto m2 = math::sin<T>(T(-1));
+    constexpr auto m3 = math::sin<T>(T(0));
+    constexpr auto m4 = math::sin<T>(T(1));
+    constexpr auto m5 = math::sin<T>(T(9));
 
     // cos
-    static_assert(ra::cexpr_math::cos<double>(-1) == 0.54030230587561978);
-    static_assert(ra::cexpr_math::cos<double>(0) == 1);
-    static_assert(ra::cexpr_math::cos<double>(1) == 0.54030230585970229);
-    static_assert(ra::cexpr_math::cos<double>(9) == -0.91113026190384661);
+    constexpr auto m6 = math::cos<T>(T(-1));
+    constexpr auto m7 = math::cos<T>(T(0));
+    constexpr auto m8 = math::cos<T>(T(1));
+    constexpr auto m9 = math::cos<T>(T(9));
 
     // tan
-    static_assert(ra::cexpr_math::tan<double>(-1) == -1.557407724638652);
-    static_assert(ra::cexpr_math::tan<double>(0) == 0);
-    static_assert(ra::cexpr_math::tan<double>(1) == 1.5574077246845337);
-    static_assert(ra::cexpr_math::tan<double>(9) == -0.45231565942045993);
+    constexpr auto m10 = math::tan<T>(T(-1));
+    constexpr auto m11 = math::tan<T>(T(0));
+    constexpr auto m12 = math::tan<T>(T(1));
+    constexpr auto m13 = math::tan<T>(T(9));
 
     // sqrt
-    static_assert(ra::cexpr_math::sqrt<double>(0) == 0);
-    static_assert(ra::cexpr_math::sqrt<double>(4) == 2);
-    static_assert(ra::cexpr_math::sqrt<double>(9) == 3);
+    static_assert(math::sqrt<T>(T(0)) == T(0));
+    static_assert(math::sqrt<T>(T(4)) == T(2));
+    static_assert(math::sqrt<T>(T(9)) == T(3));
+}
+
+int main(){
+    test_case<float>();
+    test_case<double>();
+    test_case<long double>();
     
     return 0;
 }
