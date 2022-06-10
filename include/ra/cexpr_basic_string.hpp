@@ -257,7 +257,7 @@ namespace ra::cexpr {
         char* p = buffer + i;
         *p = '\0';
 
-        if (*end) {
+        if (end) {
             *end = p;
         }
 
