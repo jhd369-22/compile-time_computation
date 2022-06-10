@@ -186,6 +186,8 @@ bool testing_self_append() {
     assert(r[8] == 'l');
     assert(r[9] == 'o');
     assert(r[10] == '\0');
+
+    return true;
 }
 
 // test9 helper function
