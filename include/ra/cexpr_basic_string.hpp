@@ -176,9 +176,21 @@ namespace ra::cexpr {
             // resulting from the append operation, the string is not modified
             // and an exception of type std::runtime_error is thrown.
             constexpr cexpr_basic_string& append(const value_type* s) {
+                value_type str[M] = "\0";
+                size_type index = 0;
+
                 while (*s) {
-                    push_back(*s++);
+                    str[index++] = *s++;
                 }
+
+                if (index > M - m_size_) {
+                    throw std::runtime_error("append: insufficient capacity");
+                }
+
+                for (size_type i = 0; i < index; ++i) {
+                    push_back(str[i]);
+                }
+
                 return *this;
             }
 
@@ -194,8 +206,10 @@ namespace ra::cexpr {
                     throw std::runtime_error("append: insufficient capacity");
                 }
 
-                for (size_type i = 0; i < other.size(); ++i) {
-                    push_back(other[i]);
+                cexpr_basic_string<value_type, OtherM> tmp(other);
+
+                for (size_type i = 0; i < tmp.size(); ++i) {
+                    push_back(tmp[i]);
                 }
                 return *this;
             }
