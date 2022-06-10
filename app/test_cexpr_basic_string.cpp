@@ -297,6 +297,7 @@ int main() {
     static_assert(testing_template_append(), "test9 failed");
     static_assert(testing_to_string(), "test10 failed");
     assert(testing_to_string2());
+    assert(testing_self_append());
 
     return 0;
 }
