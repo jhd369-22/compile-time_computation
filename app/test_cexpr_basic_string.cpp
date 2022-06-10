@@ -173,7 +173,7 @@ bool testing_self_append() {
 
     assert(r.max_size() == 15);
     assert(r.capacity() == 15);
-    assert(r.size() == 11);
+    assert(r.size() == 10);
     assert(r.begin() != r.end());
     assert(r[0] == 'h');
     assert(r[1] == 'e');
