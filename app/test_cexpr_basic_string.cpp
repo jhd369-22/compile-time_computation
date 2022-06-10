@@ -252,7 +252,7 @@ constexpr std::size_t testing_to_string_helper() {
     char str[15] = "number is ";
     char* str_end = str + 10;
 
-    return ra::cexpr::to_string(66, &(*str_end), 15, &(str_end));
+    return ra::cexpr::to_string(66, str_end, 15, &(str_end));
 }
 
 // test10
@@ -268,7 +268,7 @@ bool testing_to_string2() {
     char str[15] = "number is ";
     char* str_end = str + 10;
 
-    std::size_t num_size = ra::cexpr::to_string(66, &(*str_end), 15, &(str_end));
+    std::size_t num_size = ra::cexpr::to_string(66, str_end, 15, &(str_end));
     ra::cexpr::cexpr_basic_string<char, 15> r(str);
     assert(r.data()[0] == 'n');
     assert(r.data()[1] == 'u');
