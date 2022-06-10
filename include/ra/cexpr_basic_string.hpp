@@ -176,7 +176,7 @@ namespace ra::cexpr {
             // resulting from the append operation, the string is not modified
             // and an exception of type std::runtime_error is thrown.
             constexpr cexpr_basic_string& append(const value_type* s) {
-                value_type str[M] = "\0";
+                value_type str[M] = {value_type(0)};
                 size_type index = 0;
 
                 while (*s) {
