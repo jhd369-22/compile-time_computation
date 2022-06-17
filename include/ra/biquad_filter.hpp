@@ -50,10 +50,10 @@ namespace ra::biquad {
         Real b0 = ra::cexpr_math::sqr<Real>(omega) + omega / q + 1.0;
 
         Real a0 = ra::cexpr_math::sqr<Real>(omega) / b0;
-        Real a1 = 2.0 * a0 / b0;
-        Real a2 = a0 / b0;
-        Real b1 = 2.0 * (a0 - 1.0) / b0;
-        Real b2 = (a0 - omega / q + 1.0) / b0;
+        Real a1 = 2.0 * ra::cexpr_math::sqr<Real>(omega) / b0;
+        Real a2 = ra::cexpr_math::sqr<Real>(omega) / b0;
+        Real b1 = 2.0 * (ra::cexpr_math::sqr<Real>(omega) - 1.0) / b0;
+        Real b2 = (ra::cexpr_math::sqr<Real>(omega) - omega / q + 1.0) / b0;
         b0 = 1.0;
 
         return biquad_filter_coefs<Real>(a0, a1, a2, b0, b1, b2);
