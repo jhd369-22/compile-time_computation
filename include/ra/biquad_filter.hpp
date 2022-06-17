@@ -45,12 +45,16 @@ namespace ra::biquad {
         }
 
         const Real omega = ra::cexpr_math::tan<Real>(ra::cexpr_math::pi<Real> / 2.0 * f);
-        const Real a0 = ra::cexpr_math::sqr<Real>(omega);
-        const Real a1 = 2.0 * a0;
-        const Real a2 = a0;
-        const Real b0 = a0 + omega / q + 1.0;
-        const Real b1 = 2.0 * (a0 - 1.0);
-        const Real b2 = a0 - omega / q + 1.0;
+
+        // normalized coefficients by dividing each coefficient by b0
+        Real b0 = ra::cexpr_math::sqr<Real>(omega) + omega / q + 1.0;
+
+        Real a0 = ra::cexpr_math::sqr<Real>(omega) / b0;
+        Real a1 = 2.0 * a0 / b0;
+        Real a2 = a0 / b0;
+        Real b1 = 2.0 * (a0 - 1.0) / b0;
+        Real b2 = (a0 - omega / q + 1.0) / b0;
+        b0 = 1.0;
 
         return biquad_filter_coefs<Real>(a0, a1, a2, b0, b1, b2);
     }
@@ -69,12 +73,16 @@ namespace ra::biquad {
         }
 
         const Real omega = ra::cexpr_math::tan<Real>(ra::cexpr_math::pi<Real> / 2.0 * f);
-        const Real a0 = 1.0;
-        const Real a1 = -2.0;
-        const Real a2 = 1.0;
-        const Real b0 = ra::cexpr_math::sqr<Real>(omega) + omega / q + 1.0;
-        const Real b1 = 2.0 * (ra::cexpr_math::sqr<Real>(omega) - 1.0);
-        const Real b2 = ra::cexpr_math::sqr<Real>(omega) - omega / q + 1.0;
+
+        // normalized coefficients by dividing each coefficient by b0
+        Real b0 = ra::cexpr_math::sqr<Real>(omega) + omega / q + 1.0;
+
+        Real a0 = 1.0 / b0;
+        Real a1 = -2.0 / b0;
+        Real a2 = 1.0 / b0;
+        Real b1 = 2.0 * (ra::cexpr_math::sqr<Real>(omega) - 1.0) / b0;
+        Real b2 = (ra::cexpr_math::sqr<Real>(omega) - omega / q + 1.0) / b0;
+        b0 = 1.0;
 
         return biquad_filter_coefs<Real>(a0, a1, a2, b0, b1, b2);
     }
@@ -93,12 +101,16 @@ namespace ra::biquad {
         }
 
         const Real omega = ra::cexpr_math::tan<Real>(ra::cexpr_math::pi<Real> / 2.0 * f);
-        const Real a0 = omega / q;
-        const Real a1 = 0.0;
-        const Real a2 = -omega / q;
-        const Real b0 = ra::cexpr_math::sqr<Real>(omega) + omega / q + 1.0;
-        const Real b1 = 2.0 * (ra::cexpr_math::sqr<Real>(omega) - 1.0);
-        const Real b2 = ra::cexpr_math::sqr<Real>(omega) - omega / q + 1.0;
+
+        // normalized coefficients by dividing each coefficient by b0
+        Real b0 = ra::cexpr_math::sqr<Real>(omega) + omega / q + 1.0;
+
+        Real a0 = omega / q / b0;
+        Real a1 = 0.0 / b0;
+        Real a2 = -omega / q / b0;
+        Real b1 = 2.0 * (ra::cexpr_math::sqr<Real>(omega) - 1.0) / b0;
+        Real b2 = (ra::cexpr_math::sqr<Real>(omega) - omega / q + 1.0) / b0;
+        b0 = 1.0;
 
         return biquad_filter_coefs<Real>(a0, a1, a2, b0, b1, b2);
     }
@@ -118,12 +130,16 @@ namespace ra::biquad {
         }
 
         const Real omega = ra::cexpr_math::tan<Real>(ra::cexpr_math::pi<Real> / 2.0 * f);
-        const Real a0 = a * ra::cexpr_math::sqr<Real>(omega) + ra::cexpr_math::sqrt<Real>(2.0 * a) * omega + 1.0;
-        const Real a1 = 2.0 * (a * ra::cexpr_math::sqr<Real>(omega) - 1.0);
-        const Real a2 = a * ra::cexpr_math::sqr<Real>(omega) - ra::cexpr_math::sqrt<Real>(2.0 * a) * omega + 1.0;
-        const Real b0 = ra::cexpr_math::sqr<Real>(omega) + ra::cexpr_math::sqrt<Real>(2.0) * omega + 1.0;
-        const Real b1 = 2.0 * (ra::cexpr_math::sqr<Real>(omega) - 1.0);
-        const Real b2 = ra::cexpr_math::sqr<Real>(omega) - ra::cexpr_math::sqrt<Real>(2.0) * omega + 1.0;
+
+        // normalized coefficients by dividing each coefficient by b0
+        Real b0 = ra::cexpr_math::sqr<Real>(omega) + ra::cexpr_math::sqrt<Real>(2.0) * omega + 1.0;
+
+        Real a0 = (a * ra::cexpr_math::sqr<Real>(omega) + ra::cexpr_math::sqrt<Real>(2.0 * a) * omega + 1.0) / b0;
+        Real a1 = 2.0 * (a * ra::cexpr_math::sqr<Real>(omega) - 1.0) / b0;
+        Real a2 = (a * ra::cexpr_math::sqr<Real>(omega) - ra::cexpr_math::sqrt<Real>(2.0 * a) * omega + 1.0) / b0;
+        Real b1 = 2.0 * (ra::cexpr_math::sqr<Real>(omega) - 1.0) / b0;
+        Real b2 = (ra::cexpr_math::sqr<Real>(omega) - ra::cexpr_math::sqrt<Real>(2.0) * omega + 1.0) / b0;
+        b0 = 1.0;
 
         return biquad_filter_coefs<Real>(a0, a1, a2, b0, b1, b2);
     }
@@ -143,12 +159,16 @@ namespace ra::biquad {
         }
 
         const Real omega = ra::cexpr_math::tan<Real>(ra::cexpr_math::pi<Real> / 2.0 * f);
-        const Real a0 = ra::cexpr_math::sqr<Real>(omega) + ra::cexpr_math::sqrt<Real>(2.0) * omega + 1.0;
-        const Real a1 = 2.0 * (ra::cexpr_math::sqr<Real>(omega) - 1.0);
-        const Real a2 = ra::cexpr_math::sqr<Real>(omega) - ra::cexpr_math::sqrt<Real>(2.0) * omega + 1.0;
-        const Real b0 = a * ra::cexpr_math::sqr<Real>(omega) + ra::cexpr_math::sqrt<Real>(2.0 * a) * omega + 1.0;
-        const Real b1 = 2.0 * (a * ra::cexpr_math::sqr<Real>(omega) - 1.0);
-        const Real b2 = a * ra::cexpr_math::sqr<Real>(omega) - ra::cexpr_math::sqrt<Real>(2.0 * a) * omega + 1.0;
+
+        // normalized coefficients by dividing each coefficient by b0
+        Real b0 = a * ra::cexpr_math::sqr<Real>(omega) + ra::cexpr_math::sqrt<Real>(2.0 * a) * omega + 1.0;
+
+        Real a0 = (ra::cexpr_math::sqr<Real>(omega) + ra::cexpr_math::sqrt<Real>(2.0) * omega + 1.0) / b0;
+        Real a1 = 2.0 * (ra::cexpr_math::sqr<Real>(omega) - 1.0) / b0;
+        Real a2 = (ra::cexpr_math::sqr<Real>(omega) - ra::cexpr_math::sqrt<Real>(2.0) * omega + 1.0) / b0;
+        Real b1 = 2.0 * (a * ra::cexpr_math::sqr<Real>(omega) - 1.0) / b0;
+        Real b2 = (a * ra::cexpr_math::sqr<Real>(omega) - ra::cexpr_math::sqrt<Real>(2.0 * a) * omega + 1.0) / b0;
+        b0 = 1.0;
 
         return biquad_filter_coefs<Real>(a0, a1, a2, b0, b1, b2);
     }
