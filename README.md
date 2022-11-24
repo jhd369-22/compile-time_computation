@@ -1,6 +1,6 @@
-To compile the code(for example):
-cmake -S . -B tmp -D CMAKE_CXX_COMPILER=clang++
+To compile the code(for example):<br>
+cmake -S . -B tmp -D CMAKE_CXX_COMPILER=clang++<br>
 
-To test the code of mandelbrot set:
-./tmp/test_mandelbrot >> mandelbrot.pnm
-display mandelbrot.pnm
+To test the code of mandelbrot set:<br>
+./tmp/test_mandelbrot >> mandelbrot.pnm<br>
+display mandelbrot.pnm<br>
